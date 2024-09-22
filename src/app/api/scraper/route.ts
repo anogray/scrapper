@@ -38,7 +38,7 @@ export async function POST(request:any) {
           ? process.env.CHROME_EXECUTABLE_PATH
           : await chromium.executablePath(`${chromiumBlob}`), //await chromium.executablePath(`${chromiumBlob}`),
         //   executablePath: await chromium.executablePath(`${chromiumBlob}`),
-        headless: false,
+        headless: chromium.headless,
       });
     
       const page = await browser.newPage();
@@ -60,9 +60,7 @@ export async function POST(request:any) {
     
       await page.waitForSelector('button[type="submit"]', { visible: true });
       await page.click('button[type="submit"]');
-    
-    //   console.log("checlingNow");
-    
+        
     //   let hrefs = await page.$$eval('a', alinks=>alinks.map(ele=>ele.href))
     
     //   console.log("mid", {hrefs});
