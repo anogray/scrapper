@@ -1,95 +1,93 @@
-import Image from "next/image";
+"use client";
+import { useState } from "react";
 import styles from "./page.module.css";
 
 export default function Home() {
+  const [inputUrl, setInputUrl] = useState("");
+  const [downloadLink, setDownloadLink] = useState<string | null>(null); // State to hold the href link
+  const [error, setError] = useState<string | null>(null); // State to handle any error
+  const [loading, setLoading] = useState(false); // State for loader
+
+  async function handleClick(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setError(null); // Reset error before making the request
+    setDownloadLink(null); // Reset download link before making the request
+    setLoading(true); // Show the loader while processing
+
+    try {
+      const response = await fetch("/api/scraper", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ url: inputUrl }),
+      });
+
+      const data = await response.json();
+      if (data.success) {
+        setDownloadLink(data.href); // Update downloadLink with the href from the backend
+      } else {
+        setError(data.error); // Display error message
+      }
+    } catch (err) {
+      setError("An unexpected error occurred.");
+      console.error("Error fetching the download link:", err);
+    } finally {
+      setLoading(false); // Hide the loader after processing
+    }
+  }
+
+  // Clear button handler to reset all the states
+  function handleClear() {
+    setInputUrl(""); // Reset input field
+    setDownloadLink(null); // Clear the download link
+    setError(null); // Clear the error message
+  }
+
   return (
     <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
+      <form className={styles.formContainer} onSubmit={handleClick}>
+        <label className={styles.formLabel} htmlFor="url">
+          Enter your reel URL:
+        </label>
+        <input
+          className={styles.formInput}
+          type="text"
+          name="url"
+          id="url"
+          value={inputUrl} // Bind the value to inputUrl
+          required
+          onChange={(e) => setInputUrl(e.target.value)}
         />
-        <ol>
-          <li>
-            Get started by editing <code>src/app/page.tsx</code>.
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+        <div className={styles.buttonContainer}>
+          <button className={styles.formButton} type="submit" disabled={loading}>
+            {loading ? "Processing..." : "Get Download Link"}
+          </button>
+          <button
+            type="button" // Make sure the clear button is of type "button" to avoid form submission
+            className={styles.clearButton}
+            onClick={handleClear}
+            disabled={loading} // Disable clear button while loading
+          >
+            Clear
+          </button>
+        </div>
+      </form>
 
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.secondary}
-          >
-            Read our docs
+      {/* Loader */}
+      {loading && <div className={styles.loader}></div>}
+
+      {/* Conditionally render the result or error */}
+      {downloadLink && (
+        <div className={styles.result}>
+          <p>Download Link: </p>
+          <a href={downloadLink} target="_blank" rel="noopener noreferrer">
+            {downloadLink}
           </a>
         </div>
-      </main>
-      <footer className={styles.footer}>
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      )}
+
+      {error && <p className={styles.error}>Error: {error}</p>}
     </div>
   );
 }
