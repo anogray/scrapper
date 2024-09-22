@@ -82,7 +82,7 @@ export async function POST(request:any) {
         
       await browser.close();
 
-      console.log("browser closed");
+      console.log("browser closed.");
 
     
       return Response.json({ success: true, href:hrefs?.[8] });
