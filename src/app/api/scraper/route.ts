@@ -4,7 +4,7 @@ import puppeteer from "puppeteer-core";
 chromium.setHeadlessMode = true;
 chromium.setGraphicsMode = false;
 
-const chromiumBlob = "https://scrapper-bay.vercel.app/chromium-v127.0.0-pack"
+const chromiumBlob = "https://scrapper-bay.vercel.app/chromium-v127.0.0-pack.tar"
 
 export async function POST(request:any) {
 
