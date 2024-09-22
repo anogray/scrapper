@@ -34,10 +34,10 @@ export async function POST(request:any) {
         //   ],
         // args: chromium.args,
         defaultViewport: chromium.defaultViewport,
-        // executablePath: isLocalChrome
-        //   ? process.env.CHROME_EXECUTABLE_PATH
-        //   : await chromium.executablePath(), //await chromium.executablePath(`${chromiumBlob}`),
-          executablePath: await chromium.executablePath(`${chromiumBlob}`),
+        executablePath: isLocalChrome
+          ? process.env.CHROME_EXECUTABLE_PATH
+          : await chromium.executablePath(`${chromiumBlob}`), //await chromium.executablePath(`${chromiumBlob}`),
+        //   executablePath: await chromium.executablePath(`${chromiumBlob}`),
         headless: false,
       });
     
@@ -76,7 +76,7 @@ export async function POST(request:any) {
     
     //   }
     
-      await page.waitForSelector("div.m-2 a", { visible: true, timeout: 120000 });
+      await page.waitForSelector("div.m-2 a", { visible: true});
     
       let hrefs = await page.$$eval('a', alinks=>alinks.map(ele=>ele.href))
         //   await page.click("div.m-2 a");
