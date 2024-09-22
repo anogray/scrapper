@@ -16,6 +16,7 @@ const geistMono = localFont({
 export const metadata: Metadata = {
   title: "Download insta reel @ona",
   description: "Download a instagram reel",
+  // manifest:"/manifest.json"
 };
 
 export default function RootLayout({
