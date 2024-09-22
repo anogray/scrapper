@@ -4,7 +4,7 @@ import puppeteer from "puppeteer-core";
 chromium.setHeadlessMode = true;
 chromium.setGraphicsMode = false;
 
-const chromiumBlob = "https://github.com/anogray/scrapper/blob/master/chromium-v127.0.0-pack.tar"
+const chromiumBlob = "https://scrapper-bay.vercel.app/chromium-v127.0.0-pack"
 
 export async function POST(request:any) {
 
@@ -34,9 +34,10 @@ export async function POST(request:any) {
         //   ],
         // args: chromium.args,
         defaultViewport: chromium.defaultViewport,
-        executablePath: isLocalChrome
-          ? process.env.CHROME_EXECUTABLE_PATH
-          : await chromium.executablePath(), //await chromium.executablePath(`${chromiumBlob}`),
+        // executablePath: isLocalChrome
+        //   ? process.env.CHROME_EXECUTABLE_PATH
+        //   : await chromium.executablePath(), //await chromium.executablePath(`${chromiumBlob}`),
+          executablePath: await chromium.executablePath(`${chromiumBlob}`),
         headless: false,
       });
     
