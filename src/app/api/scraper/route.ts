@@ -4,7 +4,7 @@ import puppeteer from "puppeteer-core";
 chromium.setHeadlessMode = true;
 chromium.setGraphicsMode = false;
 
-const chromiumBlob = "https://github.com/anogray/scrapper/blob/master/chromium-v127.0.0-layer.zip"
+const chromiumBlob = "https://github.com/anogray/scrapper/blob/master/chromium-v127.0.0-pack.tar"
 
 export async function POST(request:any) {
 
