@@ -52,6 +52,7 @@ export default function Home() {
         </label>
         <input
           className={styles.formInput}
+          placeholder="https://www.instagram.com/reel/DAI3wcVvqZa"
           type="text"
           name="url"
           id="url"
