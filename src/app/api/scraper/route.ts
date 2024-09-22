@@ -36,7 +36,7 @@ export async function POST(request:any) {
         defaultViewport: chromium.defaultViewport,
         executablePath: isLocalChrome
           ? process.env.CHROME_EXECUTABLE_PATH
-          : await chromium.executablePath(`${chromiumBlob}`),
+          : await chromium.executablePath(), //await chromium.executablePath(`${chromiumBlob}`),
         headless: false,
       });
     
