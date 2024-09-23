@@ -102,7 +102,12 @@
   text-decoration: none; /* Remove underline from the link */
 }
 
-/* .downloadButton {
-  text-decoration: none;
-} */
+.videoPreview {
+  margin-top: 20px;
+  display: flex;
+}
 
+.videoTag {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}

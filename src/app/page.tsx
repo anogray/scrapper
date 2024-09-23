@@ -83,6 +83,16 @@ export default function Home() {
       {/* Loader */}
       {loading && <div className={styles.loader}></div>}
 
+
+      {downloadLink && (
+        <div className={styles.videoPreview}>
+          <video controls width="320" height="240">
+            <source src={downloadLink} type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        </div>
+      )}
+
       {/* Conditionally render the result or error */}
       {downloadLink && (
         <div className={styles.result}>
