@@ -77,3 +77,32 @@
     transform: rotate(360deg);
   }
 }
+
+.downloadButton {
+  background-color: #2c6cff; /* Green background */
+  border: none;
+  color: white;
+  padding: 2px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  margin: 5px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+
+.downloadButton:disabled {
+  background-color: #6c757d; /* Grey background for disabled state */
+  cursor: not-allowed;
+}
+
+.downloadLink {
+  text-decoration: none; /* Remove underline from the link */
+}
+
+/* .downloadButton {
+  text-decoration: none;
+} */
+

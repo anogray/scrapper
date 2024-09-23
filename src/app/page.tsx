@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import styles from "./page.module.css";
+import { FaDownload } from "react-icons/fa";
 
 export default function Home() {
   const [inputUrl, setInputUrl] = useState("");
@@ -61,7 +62,11 @@ export default function Home() {
           onChange={(e) => setInputUrl(e.target.value)}
         />
         <div className={styles.buttonContainer}>
-          <button className={styles.formButton} type="submit" disabled={loading}>
+          <button
+            className={styles.formButton}
+            type="submit"
+            disabled={loading}
+          >
             {loading ? "Processing..." : "Get Download Link"}
           </button>
           <button
@@ -81,9 +86,15 @@ export default function Home() {
       {/* Conditionally render the result or error */}
       {downloadLink && (
         <div className={styles.result}>
-          <p>Download Link: </p>
-          <a href={downloadLink} target="_blank" rel="noopener noreferrer">
-            {downloadLink}
+          <a
+            href={downloadLink}
+            className={styles.downloadButton}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <button className={styles.downloadButton}>
+            Download <FaDownload /> 
+            </button>
           </a>
         </div>
       )}
