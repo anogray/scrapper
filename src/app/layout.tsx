@@ -17,6 +17,9 @@ export const metadata: Metadata = {
   title: "Download insta reel @ona",
   description: "Download a instagram reel",
   manifest:"https://scrapper-bay.vercel.app/manifest.json",
+  verification:{
+     google: 'FEJpu3gUZ9pm2hFA2q53SlZJlrSMM-Hc2IhlJVxu1m4'
+  }
 };
 
 export default function RootLayout({
