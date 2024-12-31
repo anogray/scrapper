@@ -48,7 +48,8 @@ export async function POST(request: any) {
     );
 
     // Navigate the page to a URL.
-    await page.goto("https://instavideosave.net/");
+    // await page.goto("https://instavideosave.net/");
+    await page.goto("https://fastvideosave.net/");
 
     // Set screen size.
     await page.setViewport({ width: 1920, height: 1920 });
